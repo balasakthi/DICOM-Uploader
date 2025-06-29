@@ -1,4 +1,16 @@
-<template>P User {{ $route.params.id }}</template>
+<template>
+  <v-container>
+    <v-breadcrumbs :items="items">
+      <template v-slot:title="{ item }">
+        {{ item.title }}
+      </template>
+    </v-breadcrumbs>
+
+    <v-card flat>
+      <v-card-text> Patient Id: {{ $route.params.id }}</v-card-text>
+    </v-card>
+  </v-container>
+</template>
 
 <script setup>
 import { onMounted } from "vue";
@@ -14,6 +26,19 @@ const credentials = btoa(
     import.meta.env.VITE_ORTHANC_PASSWORD
   }`
 );
+
+const items = [
+  {
+    title: "View all",
+    disabled: false,
+    to: "/",
+  },
+  {
+    title: "Patient",
+    disabled: true,
+    href: "breadcrumbs_link_1",
+  },
+];
 
 onMounted(async () => {
   try {
